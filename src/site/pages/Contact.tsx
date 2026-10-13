@@ -78,10 +78,9 @@ export default function Contact() {
                       <polyline points="22 4 12 14.01 9 11.01" />
                     </svg>
                   </div>
-                  <h2 className="font-editorial text-4xl text-espresso mb-4">Message received.</h2>
+                  <h2 className="font-editorial text-4xl text-espresso mb-4">Demo message complete.</h2>
                   <p className="text-base text-stone leading-relaxed max-w-sm mx-auto mb-8">
-                    Thank you for reaching out. A member of our concierge team will be in touch
-                    within 24 hours.
+                    This demo shows the contact flow. No message was sent.
                   </p>
                   <Link
                     to="/"
@@ -92,6 +91,7 @@ export default function Contact() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate>
+                  <p className="text-sm text-stone mb-6">Demo contact form. Use fictional information; no message is sent.</p>
                   {/* Mode toggle */}
                   <div className="flex mb-8 border border-oat">
                     <button

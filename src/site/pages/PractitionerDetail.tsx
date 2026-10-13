@@ -17,6 +17,7 @@ export default function PractitionerDetail() {
   }, [practitioner, navigate]);
 
   const bioRef = useReveal();
+  const expertiseRef = useReveal();
   const certRef = useReveal();
   const treatRef = useReveal();
 
@@ -79,7 +80,7 @@ export default function PractitionerDetail() {
 
         {/* Expertise & Certifications */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 md:mb-20">
-          <div ref={bioRef} className="reveal">
+          <div ref={expertiseRef} className="reveal">
             <p className="text-xs tracking-luxury uppercase text-stone mb-4">Areas of Expertise</p>
             <div className="flex flex-wrap gap-2">
               {practitioner.expertise.map((exp) => (

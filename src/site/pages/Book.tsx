@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from '@/lib/router-compat';
 import { services, getServiceById } from '../data/services';
-import { practitioners, getPractitionersForService } from '../data/practitioners';
+import { practitioners, getPractitionerById } from '../data/practitioners';
+import { getAvailablePractitioners, getBookingSelection, selectBookingService } from '../data/booking-selection';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface BookingState {
@@ -67,11 +68,14 @@ function Step1({ booking, setBooking, onNext }: {
   setBooking: (b: BookingState) => void;
   onNext: () => void;
 }) {
-  const mainServices = services.filter((s) => s.duration > 0);
+  const selectedPractitioner = getPractitionerById(booking.practitionerId);
+  const mainServices = services.filter((service) => service.duration > 0 && (
+    !selectedPractitioner || getAvailablePractitioners(service.id).some(({ id }) => id === selectedPractitioner.id)
+  ));
   return (
     <div>
       <h2 className="font-editorial text-3xl md:text-4xl text-espresso mb-2">Choose Your Experience</h2>
-      <p className="text-sm text-stone mb-8">Select the treatment you'd like to book.</p>
+      <p className="text-sm text-stone mb-8">{selectedPractitioner ? `Select a treatment with ${selectedPractitioner.name}.` : "Select the treatment you'd like to book."}</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
         {mainServices.map((service) => {
           const selected = booking.serviceId === service.id;
@@ -83,7 +87,8 @@ function Step1({ booking, setBooking, onNext }: {
           return (
             <button
               key={service.id}
-              onClick={() => setBooking({ ...booking, serviceId: service.id, practitionerId: '' })}
+              onClick={() => setBooking({ ...booking, ...selectBookingService(booking, service.id), date: '', time: '' })}
+              aria-pressed={selected}
               className={`text-left p-5 border transition-all duration-300 hover:shadow-luxury ${
                 selected
                   ? 'border-espresso bg-espresso/5 shadow-luxury'
@@ -123,10 +128,7 @@ function Step2({ booking, setBooking, onNext, onBack }: {
   onNext: () => void;
   onBack: () => void;
 }) {
-  const available = booking.serviceId
-    ? getPractitionersForService(booking.serviceId)
-    : practitioners;
-  const allPractitioners = available.length > 0 ? available : practitioners;
+  const allPractitioners = getAvailablePractitioners(booking.serviceId);
 
   return (
     <div>
@@ -164,6 +166,7 @@ function Step2({ booking, setBooking, onNext, onBack }: {
             <button
               key={p.id}
               onClick={() => setBooking({ ...booking, practitionerId: p.id })}
+              aria-pressed={selected}
               className={`text-left p-5 rounded-2xl border transition-all duration-300 ${
                 selected
                   ? 'border-espresso bg-espresso/5 shadow-luxury'
@@ -478,10 +481,10 @@ function ConfirmationScreen({ booking }: { booking: BookingState }) {
           <polyline points="22 4 12 14.01 9 11.01" />
         </svg>
       </div>
-      <h2 className="font-editorial text-4xl md:text-5xl text-espresso mb-4">You're confirmed.</h2>
+      <h2 className="font-editorial text-4xl md:text-5xl text-espresso mb-4">Demo booking complete.</h2>
       <p className="text-base text-stone leading-relaxed max-w-md mx-auto mb-8">
-        A confirmation has been sent to <strong className="text-espresso">{booking.email}</strong>.
-        We look forward to welcoming you.
+        This is a demo booking for <strong className="text-espresso">{booking.email}</strong>.
+        No appointment was reserved or confirmation email sent.
       </p>
       {service && (
         <div className="bg-parchment rounded-2xl p-6 max-w-sm mx-auto mb-8 text-left">
@@ -513,13 +516,18 @@ function ConfirmationScreen({ booking }: { booking: BookingState }) {
 // ─── Main Book Page ───────────────────────────────────────────────────────────
 export default function Book() {
   const [searchParams] = useSearchParams();
-  const preselectedService = searchParams.get('service') || '';
+  const preselection = getBookingSelection(
+    searchParams.get('service') || '',
+    searchParams.get('practitioner') || '',
+  );
+  const preselectedService = preselection.serviceId;
+  const preselectedPractitioner = preselection.practitionerId;
 
   const [step, setStep] = useState(preselectedService ? 2 : 1);
   const [confirmed, setConfirmed] = useState(false);
   const [booking, setBooking] = useState<BookingState>({
     serviceId: preselectedService,
-    practitionerId: '',
+    practitionerId: preselectedPractitioner,
     date: '',
     time: '',
     firstName: '',
@@ -529,12 +537,17 @@ export default function Book() {
     notes: '',
   });
 
-  // If service pre-selected, skip to step 2
   useEffect(() => {
-    if (preselectedService) {
-      setStep(2);
-    }
-  }, [preselectedService]);
+    setBooking((current) => ({
+      ...current,
+      serviceId: preselectedService,
+      practitionerId: preselectedPractitioner,
+      date: '',
+      time: '',
+    }));
+    setStep(preselectedService ? 2 : 1);
+    setConfirmed(false);
+  }, [preselectedService, preselectedPractitioner]);
 
   const handleNext = () => setStep((s) => Math.min(s + 1, 4));
   const handleBack = () => setStep((s) => Math.max(s - 1, 1));
@@ -548,6 +561,7 @@ export default function Book() {
           <div className="text-center mb-10">
             <p className="text-xs tracking-luxury uppercase text-stone mb-3">Reserve Your Experience</p>
             <h1 className="font-editorial text-4xl md:text-5xl text-espresso">Book a Treatment</h1>
+            <p className="text-sm text-stone mt-4">Demo only. Use fictional details; no appointment is reserved.</p>
           </div>
         )}
 
