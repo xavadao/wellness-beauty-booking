@@ -1,0 +1,18 @@
+# Serenova Wellness Booking
+
+> A botanical wellness and beauty booking demo with sample treatment pages, practitioner profiles and a fictional appointment flow. No appointments or emails are created.
+
+This is a public sample website created with XavaInf. Content, products, business details and identities are illustrative.
+
+## Pages
+
+- [Wellness, Refined — Demo](https://vibed-wellness.xavainf.com/): Explore the fictional Serenova sanctuary, sample beauty treatments and practitioner profiles. Booking is a demonstration only.
+- [Treatments & Rituals](https://vibed-wellness.xavainf.com/services): Browse sample Serenova facials, massage and beauty rituals with illustrative durations and prices. No treatment is sold through this demo.
+- [Meet the Practitioners](https://vibed-wellness.xavainf.com/practitioners): Explore four fictional Serenova practitioner profiles, sample expertise and signature treatments.
+- [Our Sanctuary Story](https://vibed-wellness.xavainf.com/about): Discover the fictional Serenova sanctuary and its botanical approach to wellness in this sample website.
+- [Demo Concierge](https://vibed-wellness.xavainf.com/contact): Try the sample Serenova contact form. Messages are not sent or stored, and business contact details are fictional.
+- [Sitemap](https://vibed-wellness.xavainf.com/sitemap.xml): Complete public page list.
+
+## Demo boundaries
+
+No production purchases, appointments, email delivery or authentication are provided. No ratings or real business performance are claimed.
