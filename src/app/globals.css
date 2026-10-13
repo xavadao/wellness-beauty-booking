@@ -1,0 +1,208 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap");
+/* Tailwind v4 — config lives here only. There is no tailwind.config.js; do not add one. */
+@import "tailwindcss";
+
+/* From the Vite template's index.html <style>. */
+:root {
+	color-scheme: light;
+	--background: 36 33% 97%;
+	--foreground: 20 15% 20%;
+}
+body {
+	background-color: hsl(var(--background));
+	color: hsl(var(--foreground));
+	min-height: 100vh;
+	margin: 0;
+}
+
+
+/* ============================================================
+   SERENOVA — ECO-LUXURY WELLNESS DESIGN SYSTEM
+   Palette: cream, warm beige, oat, latte, stone, earth, espresso
+   Typography: Cormorant Garamond (editorial) + Inter (body)
+   ============================================================ */
+
+:root {
+	color-scheme: light;
+
+	/* Luxury Palette (HSL) */
+	--cream:      36 33% 97%;
+	--parchment:  34 28% 93%;
+	--beige:      32 25% 87%;
+	--oat:        30 22% 80%;
+	--latte:      25 18% 70%;
+	--stone:      20 10% 58%;
+	--earth:      18 8%  46%;
+	--bark:       20 12% 32%;
+	--espresso:   18 15% 22%;
+	--ink:        20 12% 14%;
+
+	/* Semantic Tokens */
+	--background:             var(--cream);
+	--foreground:             var(--espresso);
+	--card:                   var(--parchment);
+	--card-foreground:        var(--espresso);
+	--primary:                var(--espresso);
+	--primary-foreground:     var(--cream);
+	--secondary:              var(--beige);
+	--secondary-foreground:   var(--bark);
+	--muted:                  var(--parchment);
+	--muted-foreground:       var(--stone);
+	--accent:                 var(--oat);
+	--accent-foreground:      var(--espresso);
+	--border:                 var(--oat);
+	--input:                  var(--beige);
+	--ring:                   var(--latte);
+	--destructive:            0 60% 50%;
+	--destructive-foreground: 0 0% 98%;
+	--radius:                 0px;
+}
+
+/* Tailwind v4 Theme */
+@theme {
+	--color-background:             hsl(var(--background));
+	--color-foreground:             hsl(var(--foreground));
+	--color-card:                   hsl(var(--card));
+	--color-card-foreground:        hsl(var(--card-foreground));
+	--color-primary:                hsl(var(--primary));
+	--color-primary-foreground:     hsl(var(--primary-foreground));
+	--color-secondary:              hsl(var(--secondary));
+	--color-secondary-foreground:   hsl(var(--secondary-foreground));
+	--color-muted:                  hsl(var(--muted));
+	--color-muted-foreground:       hsl(var(--muted-foreground));
+	--color-accent:                 hsl(var(--accent));
+	--color-accent-foreground:      hsl(var(--accent-foreground));
+	--color-border:                 hsl(var(--border));
+	--color-input:                  hsl(var(--input));
+	--color-ring:                   hsl(var(--ring));
+	--color-destructive:            hsl(var(--destructive));
+	--color-destructive-foreground: hsl(var(--destructive-foreground));
+
+	--color-cream:     hsl(var(--cream));
+	--color-parchment: hsl(var(--parchment));
+	--color-beige:     hsl(var(--beige));
+	--color-oat:       hsl(var(--oat));
+	--color-latte:     hsl(var(--latte));
+	--color-stone:     hsl(var(--stone));
+	--color-earth:     hsl(var(--earth));
+	--color-bark:      hsl(var(--bark));
+	--color-espresso:  hsl(var(--espresso));
+	--color-ink:       hsl(var(--ink));
+
+	--radius-sm:  calc(var(--radius) - 4px);
+	--radius-md:  var(--radius);
+	--radius-lg:  calc(var(--radius) + 4px);
+	--radius-xl:  calc(var(--radius) + 8px);
+	--radius-2xl: calc(var(--radius) + 16px);
+
+	--font-editorial: 'Cormorant Garamond', Georgia, serif;
+	--font-sans:      'Inter', ui-sans-serif, system-ui, sans-serif;
+	--font-mono:      ui-monospace, 'Cascadia Code', monospace;
+}
+
+/* Base Styles */
+@layer base {
+	*, *::before, *::after { box-sizing: border-box; }
+	html { scroll-behavior: smooth; }
+
+	body {
+		margin: 0;
+		background-color: hsl(var(--cream));
+		color: hsl(var(--espresso));
+		font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+		font-weight: 300;
+		line-height: 1.7;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		font-family: 'Cormorant Garamond', Georgia, serif;
+		font-weight: 400;
+		line-height: 1.15;
+		letter-spacing: 0.02em;
+		color: hsl(var(--espresso));
+		margin: 0;
+	}
+
+	p { margin: 0; }
+	a { color: inherit; text-decoration: none; }
+	img { display: block; max-width: 100%; }
+	button { cursor: pointer; font-family: inherit; }
+	input, textarea, select { font-family: inherit; }
+	code { font-family: ui-monospace, 'Cascadia Code', monospace; }
+}
+
+/* Utility Layer */
+@layer utilities {
+	.font-editorial { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+	.tracking-luxury  { letter-spacing: 0.15em; }
+	.tracking-wide-xl { letter-spacing: 0.08em; }
+
+	.shadow-luxury    { box-shadow: 0 4px 32px 0 rgba(61,53,48,0.08), 0 1px 4px 0 rgba(61,53,48,0.04); }
+	.shadow-luxury-lg { box-shadow: 0 12px 48px 0 rgba(61,53,48,0.12), 0 2px 8px 0 rgba(61,53,48,0.06); }
+	.shadow-luxury-xl { box-shadow: 0 24px 80px 0 rgba(61,53,48,0.16), 0 4px 16px 0 rgba(61,53,48,0.08); }
+
+	.transition-luxury      { transition: all 500ms cubic-bezier(0.25,0.1,0.25,1); }
+	.transition-luxury-fast { transition: all 300ms cubic-bezier(0.25,0.1,0.25,1); }
+
+	.animate-fade-in         { animation: fadeIn 800ms cubic-bezier(0.25,0.1,0.25,1) both; }
+	.animate-fade-up         { animation: fadeUp 800ms cubic-bezier(0.25,0.1,0.25,1) both; }
+	.animate-fade-up-delay   { animation: fadeUp 800ms cubic-bezier(0.25,0.1,0.25,1) 200ms both; }
+	.animate-fade-up-delay-2 { animation: fadeUp 800ms cubic-bezier(0.25,0.1,0.25,1) 400ms both; }
+	.animate-fade-up-delay-3 { animation: fadeUp 800ms cubic-bezier(0.25,0.1,0.25,1) 600ms both; }
+
+	.overlay-warm {
+		background: linear-gradient(to bottom, rgba(250,247,242,0) 0%, rgba(250,247,242,0.6) 60%, rgba(250,247,242,0.95) 100%);
+	}
+	.overlay-dark-warm {
+		background: linear-gradient(to bottom, rgba(39,34,32,0.1) 0%, rgba(39,34,32,0.45) 60%, rgba(39,34,32,0.78) 100%);
+	}
+
+	.divider-luxury {
+		height: 1px;
+		background: linear-gradient(to right, transparent, hsl(var(--oat)), transparent);
+	}
+
+	.reveal {
+		opacity: 0;
+		transform: translateY(24px);
+		transition: opacity 700ms cubic-bezier(0.25,0.1,0.25,1), transform 700ms cubic-bezier(0.25,0.1,0.25,1);
+	}
+	.reveal.visible { opacity: 1; transform: translateY(0); }
+
+	/* Cards: subtle shadow lift only — no translateY, no scale */
+	.hover-lift {
+		transition: box-shadow 400ms cubic-bezier(0.25,0.1,0.25,1), opacity 400ms cubic-bezier(0.25,0.1,0.25,1);
+	}
+	.hover-lift:hover { box-shadow: 0 16px 48px 0 rgba(61,53,48,0.12); }
+
+	.img-zoom { overflow: hidden; }
+	.img-zoom img { transition: transform 900ms cubic-bezier(0.25,0.1,0.25,1); }
+	.img-zoom:hover img { transform: scale(1.02); }
+
+	/* Buttons: architectural — opacity fade only, no scale, no bounce */
+	.btn-luxury {
+		transition: background-color 350ms cubic-bezier(0.25,0.1,0.25,1),
+		            color 350ms cubic-bezier(0.25,0.1,0.25,1),
+		            opacity 350ms cubic-bezier(0.25,0.1,0.25,1),
+		            border-color 350ms cubic-bezier(0.25,0.1,0.25,1);
+	}
+	.btn-luxury:hover  { opacity: 0.82; }
+	.btn-luxury:active { opacity: 0.65; }
+
+	.aspect-portrait  { aspect-ratio: 3 / 4; }
+	.aspect-landscape { aspect-ratio: 4 / 3; }
+	.aspect-cinematic { aspect-ratio: 16 / 9; }
+}
+
+/* Keyframes */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: hsl(var(--cream)); }
+::-webkit-scrollbar-thumb { background: hsl(var(--oat)); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--latte)); }
