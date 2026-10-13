@@ -72,29 +72,43 @@ function HeroSection() {
       <div className="absolute inset-0" style={{ background: 'rgba(61,53,48,0.18)' }} />
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-        <p className="animate-fade-in text-xs tracking-luxury uppercase text-cream/70 mb-6">
+      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 max-[374px]:pt-20 max-[374px]:pb-44">
+        <p className="animate-fade-in text-xs tracking-luxury uppercase text-cream/70 mb-6 max-[374px]:mb-2">
           Est. 2019 · London
         </p>
-        <h1 className="animate-fade-up font-editorial text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-cream leading-none tracking-wide-xl mb-6 max-w-4xl">
+        <h1 className="animate-fade-up font-editorial text-6xl max-[374px]:text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-cream leading-none tracking-wide-xl mb-6 max-[374px]:mb-4 max-w-4xl">
           Wellness,<br />Refined.
         </h1>
-        <p className="animate-fade-up-delay text-sm md:text-base text-cream/75 max-w-md leading-relaxed mb-10">
+        <p className="animate-fade-up-delay text-sm md:text-base text-cream/75 max-w-md leading-relaxed mb-10 max-[374px]:mb-6">
           A sanctuary where ancient ritual meets modern science. Every experience, crafted for you.
         </p>
-        <div className="animate-fade-up-delay-2 flex flex-col sm:flex-row gap-4 items-center">
+        <div className="animate-fade-up-delay-2 flex flex-col sm:flex-row gap-4 max-[374px]:gap-3 items-center">
           <Link
             to="/book"
-            className="btn-luxury px-8 py-4 bg-cream text-espresso text-xs tracking-luxury uppercase shadow-luxury-lg hover:bg-parchment transition-colors duration-300"
+            className="btn-luxury px-8 py-4 max-[374px]:py-3 bg-cream text-espresso text-xs tracking-luxury uppercase shadow-luxury-lg hover:bg-parchment transition-colors duration-300"
           >
             Book an Experience
           </Link>
           <Link
             to="/services"
-            className="btn-luxury px-8 py-4 border border-cream/50 text-cream text-xs tracking-luxury uppercase hover:bg-cream/10 transition-colors duration-300"
+            className="btn-luxury px-8 py-4 max-[374px]:py-3 border border-cream/50 text-cream text-xs tracking-luxury uppercase hover:bg-cream/10 transition-colors duration-300"
           >
             Explore Services
           </Link>
+        </div>
+        <div className="mt-6 max-[374px]:mt-2 flex gap-1" role="group" aria-label="Sanctuary photographs">
+          {heroImages.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              aria-label={`Show sanctuary photograph ${i + 1} of ${heroImages.length}`}
+              aria-pressed={i === currentImg}
+              onClick={() => setCurrentImg(i)}
+              className="flex h-11 w-11 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cream"
+            >
+              <span aria-hidden="true" className={`h-1.5 rounded-full transition-all duration-500 ${i === currentImg ? 'bg-cream w-4' : 'bg-cream/60 w-1.5'}`} />
+            </button>
+          ))}
         </div>
       </div>
 
@@ -104,16 +118,6 @@ function HeroSection() {
         <div className="w-px h-8 bg-cream/30 animate-pulse" />
       </div>
 
-      {/* Image dots */}
-      <div className="absolute bottom-8 right-8 flex gap-2">
-        {heroImages.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrentImg(i)}
-            className={`w-1.5 h-1.5 transition-all duration-500 ${i === currentImg ? 'bg-cream w-4' : 'bg-cream/40'}`}
-          />
-        ))}
-      </div>
     </section>
   );
 }
